@@ -44,7 +44,6 @@ namespace {
         console::PrintLine(person.ToString());
     }
 
-    // Сохраняет формат вывода из задания 1.2 для старых пунктов меню.
     void PrintPersonLegacy(const Person& person) {
         console::PrintLine(person.name().ToString() + ", рост: " +
             std::to_string(person.height()));
@@ -185,7 +184,7 @@ namespace {
         barsik.Meow(3);
     }
 
-}  // namespace
+}
 
 int main() {
     console::Init();
