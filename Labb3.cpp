@@ -8,17 +8,15 @@
 #ifdef _WIN32
 #ifndef NOMINMAX
 #define NOMINMAX
-#endif  // NOMINMAX
+#endif
 #include <windows.h>
-#endif  // _WIN32
+#endif
 
 namespace {
 
 #ifdef _WIN32
-    // Кодировка, которую использует консоль Visual Studio.
     constexpr int kConsoleCodePage = 1251;
 
-    // Кодировка, в которой компилятор создал строковые литералы.
     int SourceCodePage() {
 #if defined(_MSVC_EXECUTION_CHARACTER_SET)
         return _MSVC_EXECUTION_CHARACTER_SET;
@@ -60,7 +58,7 @@ namespace {
             nullptr, nullptr);
         return result;
     }
-#endif  // _WIN32
+#endif
 
     bool EndsWith(const std::string& text, const std::string& suffix) {
         return text.size() >= suffix.size() &&
@@ -71,7 +69,6 @@ namespace {
         return text.substr(0, text.size() - suffix.size());
     }
 
-    // Образует мужское отчество от личного имени.
     std::string MakePatronymic(const std::string& given_name) {
         if (given_name.empty()) {
             return "";
@@ -115,7 +112,7 @@ namespace {
         return given_name + "ович";
     }
 
-}  // namespace
+}
 
 namespace console {
 
@@ -125,7 +122,6 @@ namespace console {
 #endif
     }
 
-    // Для консоли используется Unicode-вывод, для pipe — CP1251.
     void Print(const std::string& text) {
 #ifdef _WIN32
         const std::wstring wide = ToWide(text, SourceCodePage());
@@ -159,7 +155,7 @@ namespace console {
 
     void PrintLine(const std::string& text) { Print(text + "\n"); }
 
-}  // namespace console
+}
 
 Name::Name(std::string given_name) : given_name_(std::move(given_name)) {}
 
@@ -205,8 +201,6 @@ Person::Person(Name name, int height)
     : Person(std::move(name), height, nullptr) {
 }
 
-// Остальные конструкторы делегируют сюда, поэтому присваивания
-// выполняются только в этом конструкторе.
 Person::Person(Name name, int height, const Person* father)
     : name_(std::move(name)), height_(height), father_(father) {
     if (father_ == nullptr) {
